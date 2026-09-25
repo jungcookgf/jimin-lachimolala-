@@ -3,34 +3,33 @@ import { join } from 'path';
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
-	let currentPanel: vscode.WebviewPanel | undefined;
-
 	context.subscriptions.push(
 		vscode.commands.registerCommand('bts---jimin-pet.open', () => {
-			if (currentPanel) {
-				currentPanel.reveal(vscode.ViewColumn.One);
-				return;
-			}
-
-			currentPanel = vscode.window.createWebviewPanel(
-				'jiminPet',
-				'Jimin Pet',
-				vscode.ViewColumn.One,
-				{
-					enableScripts: true,
-					localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, 'assets')]
-				}
-			);
-
-			currentPanel.webview.html = getWebviewContent(currentPanel.webview, context.extensionUri);
-			currentPanel.onDidDispose(() => {
-				currentPanel = undefined;
-			}, undefined, context.subscriptions);
+      void vscode.commands.executeCommand('workbench.view.explorer');
 		})
 	);
+
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider(
+      'jiminPetView',
+      new JiminPetViewProvider(context.extensionUri)
+    )
+  );
 }
 
 export function deactivate() {}
+
+class JiminPetViewProvider implements vscode.WebviewViewProvider {
+  constructor(private readonly extensionUri: vscode.Uri) {}
+
+  resolveWebviewView(webviewView: vscode.WebviewView): void {
+    webviewView.webview.options = {
+      enableScripts: true,
+      localResourceRoots: [vscode.Uri.joinPath(this.extensionUri, 'assets')]
+    };
+    webviewView.webview.html = getWebviewContent(webviewView.webview, this.extensionUri);
+  }
+}
 
 function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri): string {
   const assetUri = (fileName: string) => {
@@ -76,12 +75,12 @@ function getWebviewContent(webview: vscode.Webview, extensionUri: vscode.Uri): s
       background: var(--vscode-textBlockQuote-background);
       border: 1px solid var(--vscode-panel-border);
       border-radius: 12px;
-      height: min(70vh, 360px);
-      min-height: 220px;
-      min-width: 280px;
+      height: 220px;
+      min-height: 180px;
+      min-width: 0;
       overflow: hidden;
       position: relative;
-      width: min(82vw, 520px);
+      width: 100%;
     }
     .stage::after {
       background: var(--vscode-textLink-foreground);
