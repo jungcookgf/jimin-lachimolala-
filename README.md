@@ -18,6 +18,6 @@ VS Code 1.138.0 or newer.
 
 ## Release Notes
 
-### 0.0.2
+### 0.0.3
 
-Added the Marketplace name and extension icon.
+Added a square Marketplace icon.
