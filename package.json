@@ -3,7 +3,7 @@
   "displayName": "Jimin BTS Lachimolala Coding Pet",
   "description": "A cute BTS Jimin pet for your VS Code workspace",
   "publisher": "millieramoss",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "icon": "assets/marketplace-icon.png",
   "engines": {
     "vscode": "^1.138.0"

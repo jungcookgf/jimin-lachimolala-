@@ -4,9 +4,10 @@ import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
-		vscode.commands.registerCommand('bts---jimin-pet.open', () => {
-      void vscode.commands.executeCommand('workbench.view.explorer');
-		})
+      vscode.commands.registerCommand('bts---jimin-pet.open', async () => {
+        await vscode.commands.executeCommand('workbench.view.explorer');
+        await vscode.commands.executeCommand('jiminPetView.focus');
+      })
 	);
 
   context.subscriptions.push(

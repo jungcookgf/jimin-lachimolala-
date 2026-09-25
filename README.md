@@ -32,6 +32,6 @@ VS Code 1.138.0 or newer.
 
 ## Release Notes
 
-### 0.0.5
+### 0.0.6
 
-Moved the pet into the VS Code Explorer sidebar.
+Made the command focus the pet in the VS Code Explorer sidebar.
